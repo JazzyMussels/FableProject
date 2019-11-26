@@ -1,0 +1,60 @@
+
+.shelf-bg {
+    background-image: url('../images/bookshelves.png');
+    position: absolute;
+    height: 735px;
+    width: 1440px;
+}
+.about-page-bg {
+    background-image: url('../images/aboutPage.png');
+    height: 670px;
+    width: 600px;
+    margin-left: 420px;
+    margin-top: 30px;
+    position: absolute;
+  }
+
+  .about-text {
+      margin-top: 130px;
+      margin-left: 150px;
+      width: 285px;
+      font-size: 21px;
+      font-family: 'Lobster', cursive;
+  }
+
+  #library-button{
+      background-image: url('../images/left_arrow.png');
+      margin-top: 300px;
+      margin-left: 50px;
+      width: 255px;
+      height: 200px;
+      position: absolute;
+  }
+
+  #create-button{
+    background-image: url('../images/right_arrow.png');
+    margin-top: 300px;
+    margin-left: 1130px;
+    width: 255px;
+    height: 200px;
+    position: absolute;
+   
+}
+
+#library-button-text{
+    margin-top: 55px;
+    margin-left: 90px;
+    font-size: 35px;
+    font-family: 'Lobster';
+    position: absolute;
+    -webkit-text-stroke: 0.5px whitesmoke;
+}
+
+#create-button-text{
+    margin-top: 60px;
+    margin-left: 30px;
+    font-size: 35px;
+    font-family: 'Lobster';
+    position: absolute;
+    -webkit-text-stroke: 0.5px whitesmoke;
+}

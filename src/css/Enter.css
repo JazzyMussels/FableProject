@@ -1,0 +1,44 @@
+.background-main-image {
+    background-image: url('../images/liberry.jpg') ;
+    background-size: cover ;
+    height: 730px;
+
+  }
+  
+  .warning-page {
+    background-image: url('../images/mod5title.png');
+    height: 570px;
+    width: 500px;
+    margin-left: 450px;
+    margin-top: 60px;
+    position: absolute;
+  }
+  
+  #text-box-1 {
+    margin-top: 60px;
+    position: absolute;
+    width: 300px;
+    margin-left: 75px;
+    font-size: 45px;
+    -webkit-text-stroke: 1.5px whitesmoke;
+    font-family: 'Lobster', cursive;
+  }
+  
+  #text-box-2 {
+    margin-top: 60px;
+    position: absolute;
+    width: 300px;
+    margin-left: 1050px;
+    font-size: 45px;
+    -webkit-text-stroke: 1.5px whitesmoke;
+    font-family: 'Lobster', cursive;
+  }
+  
+  .baby-button {
+    background-image: url('../images/baby-button.png');
+    height: 299px;
+    width: 299px;
+     margin-top: 420px; 
+    margin-left: 1050px;
+    position: absolute; 
+  }

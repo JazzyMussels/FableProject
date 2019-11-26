@@ -1,0 +1,28 @@
+.shelf-bg {
+    background-image: url('../images/bookshelves.png');
+    position: absolute;
+    height: 735px;
+    width: 1440px;
+}
+
+.story-template-covers{
+    display: flex;
+    flex-direction: row;
+    margin-top: -20px;
+
+}
+
+.story-template-covers img {
+    /* margin-top: 50px; */
+    margin: 105px;
+    border: 1px solid #f5f5f5;
+    box-shadow: 1px 1px 2px 0px(0,0,0,0.3);
+}
+
+#select-page-header{
+    font-family: 'Lobster', 'cursive';
+    font-size: 60px;
+    margin-top: 70px;
+    margin-left:400px;
+    -webkit-text-stroke: 1.5px whitesmoke;
+}

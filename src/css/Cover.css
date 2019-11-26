@@ -1,0 +1,15 @@
+
+.shelf-bg {
+    background-image: url('../images/bookshelves.png');
+    position: absolute;
+    height: 730px;
+    width: 1500px;
+}
+.cover-page {
+    background-image: url('../images/DirtyLogo.png');
+    height: 670px;
+    width: 600px;
+    margin-left: 450px;
+    margin-top: 30px;
+    position: absolute;
+  }
