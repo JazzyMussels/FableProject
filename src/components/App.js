@@ -8,6 +8,7 @@ import Cover from './Cover'
 import AboutPage from './AboutPage'
 import ParkStory from './ParkStory';
 
+
 const QUOTE_API = 'http://localhost:3000/quotes'
 // const BOOK_API = 'http://localhost:3000/book'
 // const IMAGE_API = 'http://localhost:3000/pictures'
