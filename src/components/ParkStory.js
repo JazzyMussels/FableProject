@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/ParkStory.css'
-
+import {NavLink} from 'react-router-dom'
 import Book from 'react-page-flip'
 
 export default class ParkStory extends React.Component {
@@ -9,14 +9,24 @@ export default class ParkStory extends React.Component {
         super(props);
         this.state={
             showCategories: false,
+            showDirection: false,
             current_quote: null,
-            gluttonEnding: false,
+            prepGluttonEnding: false,
+            engageGluttonEnding: false,
+            choice1: null,
+            choice2: null,
+            theEnd: false,
+            goToPark: false,
+            goToTrailer: false,
+
+
+            chapter2Setup: false,
+            chapter2: false,
             villian_quotes: this.props.quotes.filter(quote => quote.category === 'villian'), 
             diet_quotes: this.props.quotes.filter(quote => quote.category === 'diet'), 
             help_quotes: this.props.quotes.filter(quote => quote.category === 'help'), 
             sadness_quotes: this.props.quotes.filter(quote => quote.category === 'sadness'), 
             gluttony_quotes: this.props.quotes.filter(quote => quote.category === 'gluttony'), 
-            despair_quotes: this.props.quotes.filter(quote => quote.category === 'despair'), 
             rebellion_quotes: this.props.quotes.filter(quote => quote.category === 'rebellion'), 
             death_quotes: this.props.quotes.filter(quote => quote.category === 'death'), 
             suffering_quotes: this.props.quotes.filter(quote => quote.category === 'suffering'), 
@@ -40,67 +50,136 @@ export default class ParkStory extends React.Component {
         }
     }
 
-
-
-    getRandomQuote = (state) => {
-        let selectedQuote = state[Math.floor(Math.random() * state.length)]
-        return selectedQuote.content
-    }
-
-    showCategorySelector = () => {
-        console.log(this.state.showCategories)
+    showCategorySelector = (first, second) => {
         this.setState({
-            showCategories: true
+            showCategories: true,
+            choice1: first,
+            choice2: second
         })
-        
     };
 
-  
-    makeChoice = (state) => {
-        let choice = this.getRandomQuote(state)
-        this.setState({
-            current_quote: choice,
-            showCategories: false
-        })
-       
-        
+    showDirectionSelector = (first, second) => {
+      this.setState({
+          showDirection: true,
+          choice1: first,
+          choice2: second
+      })
+  };
+
+    displayQuoteChoices = (first, second) => {
+        if (this.state.showCategories) { 
+          return(
+          <div id='category-picker'>
+            <p className='chalkboard-text-header'>Choose A Category<br></br></p>
+            <p id='underline'>________</p>
+            <br></br>
+            <p className='chalkboard-text-choice-1' onClick={() => this.makeChoice(this.props.quotes.filter(quote => quote.category === first.toLowerCase() ))}>{first}</p>
+            <br></br>
+            <p id='or'>OR</p>
+            <br></br>
+            <p className='chalkboard-text-choice-2' onClick={() => this.makeChoice(this.props.quotes.filter(quote => quote.category === second.toLowerCase() ))}>{second}</p>
+          </div>
+          )
+        }
     }
 
+    displayStoryChoices = (first, second) => {
+      if (this.state.showDirection) { 
+        return(
+        <div id='category-picker'>
+          <p className='chalkboard-text-header'>Choose A Category<br></br></p>
+          <p id='underline'>________</p>
+          <br></br>
+          <p className='chalkboard-text-choice-1' onClick={() => this.pickPath(first)}>{first}</p>
+          <br></br>
+          <p id='or'>OR</p>
+          <br></br>
+          <p className='chalkboard-text-choice-2' onClick={() => this.pickPath(second)}>{second}</p>
+        </div>
+        )
+      }
+  }
 
-    // displayCategoryDiv = () => {
-    //     console.log('que')
-    //     return(
-    //         <div id='category-picker'>
-    //         <p className='chalkboard-text-header'>Choose A Category<br></br></p>
-    //         <p id='underline'>________</p>
-    //         <br></br>
-    //         <p className='chalkboard-text-choice-1' onClick={() => this.makeChoice(this.state.despair_quotes)}>DESPAIR</p>
-    //         <br></br>
-    //         <p id='or'>OR</p>
-    //         <br></br>
-    //         <p className='chalkboard-text-choice-2' onClick={() => this.makeChoice(this.state.christian_quotes)}>CHRISTIAN</p>
+  pickPath = (category) => {
+    if (category === 'PARK') {
+    this.setState({
+      goToPark: true,
+      showDirection: false,
+      
+    })
+  }
+  else if (category === 'TRAILER PARK') {
+    this.setState({
+      goToTrailer: true,
+      showDirection: false
+    })
+  }
+  }
 
-    //     </div>
-    //    )
-    // }
+    getRandomQuote = (category) => {
+      let selectedQuote = category[Math.floor(Math.random() * category.length)]
+      return selectedQuote.content
+  }
+
+    makeChoice = (category) => {
+        this.setState({
+            current_quote: this.getRandomQuote(category),
+            showCategories: false,
+        })
+        if (category[0].category === 'gluttony'){
+          this.setState({
+            prepGluttonEnding: true
+          })
+        }
+    }
+
+   engagePartTwo = () => {
+     if (this.state.prepGluttonEnding) {
+       this.setState({
+         engageGluttonEnding: true,
+         engageDiet: false
+       })
+     } 
+     else {
+       this.setState({
+         engageDiet: true,
+         engageGluttonEnding: false
+       })
+     }
+   }
+
+
+   engageTheEnd = () => {
+     this.setState({
+       theEnd: true
+     })
+   }
+
+   returnToChoose = () => {
+     if (this.state.theEnd) {
+       return(
+         <div className='back-to-choose'>
+             <p className='chalkboard-text-header'>Where To Now?<br></br></p>
+            <p id='underline'>________</p>
+            <br></br>
+            <p className='end-chalkboard-text-choice-1'><NavLink to='/new'>START FRESH</NavLink></p>
+            <br></br>
+            <p id='end-or'>OR</p>
+            <br></br>
+            <p className='end-chalkboard-text-choice-2'><NavLink to='/library'>SEE LIBRARY</NavLink></p>
+        </div>
+       )
+     }
+   }
+ 
 
     render(){
-        
         return (
     <div className='shelf-bg'>
 
-               {this.state.showCategories ? 
-                   <div id='category-picker'>
-                   <p className='chalkboard-text-header'>Choose A Category<br></br></p>
-                   <p id='underline'>________</p>
-                   <br></br>
-                   <p className='chalkboard-text-choice-1' onClick={() => this.makeChoice(this.state.despair_quotes)}>DESPAIR</p>
-                   <br></br>
-                   <p id='or'>OR</p>
-                   <br></br>
-                   <p className='chalkboard-text-choice-2' onClick={() => this.makeChoice(this.state.christian_quotes)}>CHRISTIAN</p>
-               </div>
-               : null}
+               {this.displayQuoteChoices(this.state.choice1, this.state.choice2)}
+               {this.displayStoryChoices(this.state.choice1, this.state.choice2)}
+
 
         <div className="park-story-book">
     
@@ -108,7 +187,9 @@ export default class ParkStory extends React.Component {
 
         <Book.Page> 
           <Book.Side>
-              <img src={require('../images/ParkCoverLg.png')} alt='park' onClick={() => this.showCategorySelector()}/>
+            <article className='page'>
+              <img src={require('../images/ParkCoverLg.png')} alt='park' onClick={() => this.showCategorySelector('DESPAIR', "CHRISTIAN")}/>
+            </article>
           </Book.Side>
 
           <Book.Side>
@@ -139,7 +220,7 @@ export default class ParkStory extends React.Component {
         </Book.Page>
 
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("DEATH", "FEMINISM")}>
                 <p className='text-box'>
                     Feeling very, very excited now, and not even a 
                     little bit sleepy, he ran downstairs.
@@ -176,7 +257,7 @@ export default class ParkStory extends React.Component {
         </Book.Page>     
 
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("GLUTTONY", "DIET")}>
                 <p className='text-box'>
                     Billy stopped eating and looked at her. He did not know what she was talking about. She did not seem to notice that Little Billy
                     was there. He decided it was better not to ask questions,
@@ -196,10 +277,10 @@ export default class ParkStory extends React.Component {
         </Book.Page> 
 
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.engagePartTwo()}>
                 <p className='text-box'>
-                    It also made Mommy act very funny.
-                    Little Billy decided to eat his food as '_________' as possible. 
+                    It also made Mommy act very funny, and Little Billy did not like that.
+                    Little Billy decided to eat his food as quickly as possible. 
                     Before Daddy had gone out for Milk and Cigarettes last week, he always used to say: 
                 </p>
             </article>
@@ -212,11 +293,12 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
-
-            {/* GLUTTONY CHOICE/END */}
-
+        </Book>
+            { (this.state.engageGluttonEnding) ? (
+              <div className="park-story-book-glutton-end">
+              <Book width='880px' height='523px'>
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("ABSURD", "SUFFERING")}>
                 <p className='text-box'>
                     Little Billy was cramming pancakes into his chubby little cheeks as fast as he could. He was so excited. 
                     Pancakes, Snow, Saturday...it was just too perfect! He was so full of happy thoughts 
@@ -234,7 +316,6 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
-
         <Book.Page>
           <Book.Side><article className='page'>
                 <p className='text-box'>
@@ -249,16 +330,15 @@ export default class ParkStory extends React.Component {
                  <p className='text-box'> 
                     'Little Billy,' she shouted! She rolled him over onto his Little big belly. She pounded on it and
                     pounded on it, not knowing what to do. Sadly, it was just too late. The pancakes had gotten the best of Little Billy.
-                    Feeling '_________'
+                    
                 </p>
             </article>
           </Book.Side>
         </Book.Page> 
-
         <Book.Page>
           <Book.Side><article className='page'>
                 <p className='text-box'>
-                " mother cried  out, '_________'.
+                Mother cried  out, "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
             </article>
           </Book.Side>
@@ -272,9 +352,8 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
-
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.engageTheEnd()}>
                 <img className="animated-gif" src='https://media1.giphy.com/media/fR4qnTFfX41nMWpwpx/200.webp?cid=790b76118e8d6e55e739a02619d0c6545cd3d0e40105006d&rid=200.webp' alt='choke'></img>
                 <p className='race-end-tag-line'>THE END</p>
             </article>
@@ -285,11 +364,18 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
-
-            {/* SLOW EATING PLOT LINE */}
-
+        </Book>
+              {this.returnToChoose()}
+              </div>
+            )
+          :
+          null 
+            }
+            {this.state.engageDiet ? 
+            <div className="park-story-book-glutton-end">
+              <Book width='880px' height='523px'>
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.showDirectionSelector('PARK', "TRAILER PARK")}>
                 <p className='text-box'>
                     Little Billy took his time eating, which was a very wise thing for a small boy to do. 
                     Mommy didn't talk very much, so Billy sat quietly and tried to decide what he
@@ -307,16 +393,29 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
+        <Book.Page>
+          <Book.Side>
 
+          </Book.Side>
+        </Book.Page>
+        </Book>
+        </div>
+        :
+        null
+    }
+
+    {this.state.goToPark ? 
+       <div className="park-story-book">
+    
+     <Book width='880px' height='523px'>  
         <Book.Page>
           <Book.Side><article className='page'>
                 <p className='text-box'>
-                    Chapter 2:
+                    Chapter 2: Little Billy's Big Park Adventure
                 </p>
             </article>
           </Book.Side>
 
-          {/* THE PARK  */}
           <Book.Side>
             <article className='page'>
                  <p className='text-box'> 
@@ -537,8 +636,12 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
         </Book.Page> 
+        </Book>
+        :
+        null
+    }
 
-        <Book.Page>
+        {/* <Book.Page>
           <Book.Side><article className='page'>
                 <p className='text-box'>
                     
@@ -606,7 +709,7 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                {/* <img src={require('../images/back_cover.png')} alt='park'/> */}
+                <img src={require('../images/back_cover.png')} alt='park'/>
             </article>
           </Book.Side>
         </Book.Page> 
@@ -654,7 +757,7 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side><article className='page'>
-                {/* <img src={require('../images/back_cover.png')} alt='park'/> */}
+                <img src={require('../images/back_cover.png')} alt='park'/>
             </article>
           </Book.Side>
           <Book.Side>
@@ -848,7 +951,7 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                {/* <img src={require('../images/back_cover.png')} alt='park'/> */}
+                <img src={require('../images/back_cover.png')} alt='park'/>
             </article>
           </Book.Side>
         </Book.Page> 
@@ -1078,7 +1181,7 @@ export default class ParkStory extends React.Component {
           <Book.Side>
             <article className='page'>
                  <p className='text-box'> 
-                    {/* <img src={require('../images/back_cover.png')} alt='park'/> */}
+                    <img src={require('../images/back_cover.png')} alt='park'/>
                 </p>
             </article>
           </Book.Side>
@@ -1141,10 +1244,10 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
               <article className='page'>
-                {/* <img src={require('../images/back_cover.png')} alt='park'/> */}
+                <img src={require('../images/back_cover.png')} alt='park'/>
             </article>
-        </Book.Page> 
-  </Book>
+        </Book.Page>  */}
+  {/* </Book> */}
   </div>
   </div>
               

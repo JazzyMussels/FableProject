@@ -11,6 +11,11 @@
     /* border: 2px solid black; */
 }
 
+.park-story-book-glutton-end{
+    margin-left: 0px;
+    margin-top: -523px;
+}
+
 
 
 .intro-text-box{
@@ -33,17 +38,12 @@
 } */
 
 .page {
-    background-image: url('../images/blankPage.png');
+    /* background-image: url('../images/blankPage.png'); */
     margin-top: 0px;
     margin-left: 0px;
     width: 440px;
     height:523px;
-    
-    position: absolute;
-    /* margin-top: -18px; */
-    /* font-family: 'Baskerville'; */
-    /* font-family: 'Calistoga', cursive; */
-   
+    position: absolute;   
 }
 
 /* .category-select-button {
@@ -76,6 +76,7 @@
     /* border: 2px solid black; */
     
 }
+
 
 .chalkboard-text-header{
     color: whitesmoke;
@@ -110,6 +111,39 @@
     position: absolute;
 }
 
+
+
+.back-to-choose {
+    height: 523px;
+    width: 350px;
+    margin-top: -523px;
+    margin-left: 535px;
+    background-image: url('../images/chalkboard.png');
+    position: absolute;
+}
+
+.end-chalkboard-text-choice-1{
+    color: whitesmoke;
+    text-align: center;
+    font-family: 'Eraser';
+    font-size: 45px;
+    margin-top:150px;
+    margin-left: 80px;
+    width: 180px;
+    position: absolute;
+}
+
+.end-chalkboard-text-choice-2{
+    color: whitesmoke;
+    text-align: center;
+    font-family: 'Eraser';
+    font-size: 45px;
+    margin-top: 290px;
+    margin-left: 85px;
+    width: 180px;
+    position: absolute;
+}
+
 #underline{
     color: whitesmoke;
     text-align: center;
@@ -127,6 +161,18 @@
     font-family: 'Eraser';
     font-size: 50px;
     margin-top: 230px;
+    margin-left: 80px;
+    width: 180px;
+    position: absolute; 
+}
+
+
+#end-or{
+    color: whitesmoke;
+    text-align: center;
+    font-family: 'Eraser';
+    font-size: 50px;
+    margin-top: 240px;
     margin-left: 80px;
     width: 180px;
     position: absolute; 
