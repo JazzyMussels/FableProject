@@ -38,7 +38,7 @@
 } */
 
 .page {
-    /* background-image: url('../images/blankPage.png'); */
+    background-image: url('../images/blankPage.png');
     margin-top: 0px;
     margin-left: 0px;
     width: 440px;
@@ -46,16 +46,7 @@
     position: absolute;   
 }
 
-/* .category-select-button {
-    background-image: url('../images/creepyKid.png');
-    height: 97px;
-    width: 100px;
-    border-radius: 50%;
-     margin-top: 30px; 
-    margin-left: 225px;
-    position: absolute; 
 
-} */
 
 .text-box{
     width: 370px;
@@ -63,6 +54,23 @@
     margin-top: 35px;
     margin-left: 45px;
     font-size: 32px;
+    font-family: 'Playfair Display', serif;
+}
+.quote-text-box{
+    width: 390px;
+    text-align: center;
+    margin-top: 35px;
+    margin-left: 25px;
+    font-size: 32px;
+    font-family: 'Playfair Display', serif;
+}
+
+.chapter-2-text-box{
+    width: 370px;
+    text-align: left;
+    margin-top: 35px;
+    margin-left: 45px;
+    font-size: 42px;
     font-family: 'Playfair Display', serif;
 }
 
@@ -95,7 +103,7 @@
     font-family: 'Eraser';
     font-size: 45px;
     margin-top:170px;
-    margin-left: 80px;
+    margin-left: 65px;
     width: 180px;
     position: absolute;
 }
@@ -106,12 +114,10 @@
     font-family: 'Eraser';
     font-size: 45px;
     margin-top: 300px;
-    margin-left: 65px;
+    margin-left: 45px;
     width: 180px;
     position: absolute;
 }
-
-
 
 .back-to-choose {
     height: 523px;
@@ -178,7 +184,16 @@
     position: absolute; 
 }
 
-.race-tag-line{
+.glutton-tag-line{
+    width: 370px;
+    text-align: center;
+    margin-top: 35px;
+    margin-left: 45px;
+    font-size: 32px;
+    font-family: 'Playfair Display', serif;
+}
+
+.race-end-tag-line{
     width: 370px;
     text-align: center;
     margin-top: 35px;
@@ -200,4 +215,68 @@ img.animated-gif{
     margin-left: 90px;
     margin-top: 90px;
     width: auto;
+}
+
+img.animated-gif-park{
+    margin-left:50px;
+    margin-top: 0px;
+    width: auto;
+    width: 350px;
+}
+
+img.animated-gif-quote-photo{
+    width: 300px;
+    margin-left:80px;
+    margin-top: -20px;
+    height: 200px;
+}
+
+img.animated-gif-bottom-left{
+    width: 300px;
+    height: 200px;
+    margin-left: 80px;
+    margin-top: -20px;
+}
+
+img.animated-gif-bottom-right{
+    width: 300px;
+    height: 200px;
+    margin-left: 70px;
+    margin-top: 0px;
+}
+
+.race-tag-line-park-evil{
+    width: 370px;
+    text-align: center;
+    margin-top: -15px;
+    margin-left: 45px;
+    font-size: 32px;
+    font-family: 'Playfair Display', serif;
+}
+
+.post-tag-line-text-box{
+    width: 370px;
+    text-align: left;
+    margin-top: -5px;
+    margin-left: 45px;
+    font-size: 32px;
+    font-family: 'Playfair Display', serif;
+}
+
+.ch-2-header{
+    width: 370px;
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 42px;
+    font-family: 'Playfair Display', serif;
+}
+
+.ch-2-title{
+    width: 370px;
+    text-align: center;
+    margin-top: -20px;
+    margin-left: 0px;
+    font-size: 42px;
+    font-family: 'Playfair Display', serif;
 }

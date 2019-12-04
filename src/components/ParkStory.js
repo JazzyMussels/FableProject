@@ -10,6 +10,7 @@ export default class ParkStory extends React.Component {
         this.state={
             showCategories: false,
             showDirection: false,
+            selectedCategory: null,
             current_quote: null,
             choice1: null,
             choice2: null,
@@ -24,32 +25,28 @@ export default class ParkStory extends React.Component {
             engageKindPath: false,
             goToHumblePath: false,
             goToDarkPath: false,
+            prepFastPath: false,
+            prepSlowPath: false,
             goToFastPath: false,
             goToSlowPath: false,
 
 
-            chapter2Setup: false,
-            chapter2: false,
             villian_quotes: this.props.quotes.filter(quote => quote.category === 'villian'), 
-            diet_quotes: this.props.quotes.filter(quote => quote.category === 'diet'), 
-            help_quotes: this.props.quotes.filter(quote => quote.category === 'help'), 
+            help_quotes: this.props.quotes.filter(quote => quote.category === 'helpful'), 
             sadness_quotes: this.props.quotes.filter(quote => quote.category === 'sadness'), 
             gluttony_quotes: this.props.quotes.filter(quote => quote.category === 'gluttony'), 
             rebellion_quotes: this.props.quotes.filter(quote => quote.category === 'rebellion'), 
             death_quotes: this.props.quotes.filter(quote => quote.category === 'death'), 
             suffering_quotes: this.props.quotes.filter(quote => quote.category === 'suffering'), 
-            depression_quotes: this.props.quotes.filter(quote => quote.category === 'depression'), 
             evil_quotes: this.props.quotes.filter(quote => quote.category === 'evil'), 
             trump_quotes: this.props.quotes.filter(quote => quote.category === 'trump'), 
-            fear_quotes: this.props.quotes.filter(quote => quote.category === 'fear'), 
             feminism_quotes: this.props.quotes.filter(quote => quote.category === 'feminism'), 
             lies_quotes: this.props.quotes.filter(quote => quote.category === 'lies'), 
             christian_quotes: this.props.quotes.filter(quote => quote.category === 'christian'), 
             absurd_quotes: this.props.quotes.filter(quote => quote.category === 'absurd'), 
-            philosophy_quotes: this.props.quotes.filter(quote => quote.category === 'philosophy'), 
             kanye_quotes: this.props.quotes.filter(quote => quote.category === 'kanye'), 
             bravery_quotes: this.props.quotes.filter(quote => quote.category === 'bravery'), 
-            super_hero_quotes: this.props.quotes.filter(quote => quote.category === 'super_hero'), 
+            super_hero_quotes: this.props.quotes.filter(quote => quote.category === 'super hero'), 
             victory_quotes: this.props.quotes.filter(quote => quote.category === 'victory'), 
             battle_quotes: this.props.quotes.filter(quote => quote.category === 'battle'), 
             communism_quotes: this.props.quotes.filter(quote => quote.category === 'communism'), 
@@ -136,13 +133,13 @@ export default class ParkStory extends React.Component {
   }
   else if (category === "FAST") {
     this.setState({
-      goToFastPath: true,
+      prepFastPath: true,
       showDirection: false
     })
   }
   else if (category === "SLOW") {
     this.setState({
-      goToSlowPath: true,
+      prepSlowPath: true,
       showDirection: false
     })
   }
@@ -157,6 +154,7 @@ export default class ParkStory extends React.Component {
         this.setState({
             current_quote: this.getRandomQuote(category),
             showCategories: false,
+            selectedCategory: category[0].category
         })
         if (category[0].category === 'gluttony'){
           this.setState({
@@ -168,7 +166,7 @@ export default class ParkStory extends React.Component {
             prepEvilPath: true
           })
         }
-        else if (category[0].category === 'help') {
+        else if (category[0].category === 'helpful') {
           this.setState({
             prepKindPath: true
           })
@@ -209,6 +207,19 @@ export default class ParkStory extends React.Component {
 
    }
 
+   engageFastOrSlow = () => {
+     if (this.state.prepFastPath){
+       this.setState({
+         goToFastPath: true
+       })
+     }
+     else{
+       this.setState({
+         goToSlowPath: true
+       })
+     }
+   }
+
    returnToChoose = () => {
      if (this.state.theEnd) {
        return(
@@ -228,6 +239,8 @@ export default class ParkStory extends React.Component {
  
 
     render(){
+      console.log(this.state.selectedCategory)
+    
         return (
     <div className='shelf-bg'>
 
@@ -242,7 +255,7 @@ export default class ParkStory extends React.Component {
         <Book.Page> 
           <Book.Side>
             <article className='page'>
-              <img src={require('../images/ParkCoverLg.png')} alt='park' onClick={() => this.showCategorySelector('DESPAIR', "CHRISTIAN")}/>
+              <img src={require('../images/ParkCoverLg.png')} alt='park' onClick={() => this.showCategorySelector('DEATH', "CHRISTIAN")}/>
             </article>
           </Book.Side>
 
@@ -258,9 +271,19 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side><article className='page'>
-                <p className='text-box'>
-                    {this.state.current_quote ? this.state.current_quote : null}
+                <p className='quote-text-box'>
+                    {this.state.current_quote ? `"${this.state.current_quote}"` : null}
                 </p>
+                {this.state.selectedCategory === 'death' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/3o6Ztj160BEqLidM7S/giphy.gif' alt='death'></img>
+                :
+                null
+                }
+                {this.state.selectedCategory === 'christian' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/l2YWpKW3PmdvotNKw/giphy.gif' alt='church'></img>
+              :
+              null
+              }
             </article>
           </Book.Side>
           <Book.Side>
@@ -274,7 +297,7 @@ export default class ParkStory extends React.Component {
         </Book.Page>
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector("DEATH", "FEMINISM")}>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("SUFFERING", "FEMINISM")}>
                 <p className='text-box'>
                     Feeling very, very excited now, and not even a 
                     little bit sleepy, he ran downstairs.
@@ -297,21 +320,26 @@ export default class ParkStory extends React.Component {
           <Book.Side><article className='page'>
                 <p className='text-box'>
                     'That's nice, dear', Mommy said. But, as adults usually do when children are yapping on and on, 
-                    she wasn't really listening. She was lost in thought, thinking about: 
+                    she wasn't really listening. She was lost in thought, and mumbled: 
                 </p>
             </article>
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
-                    {this.state.current_quote ? this.state.current_quote : null}
+                 <p className='quote-text-box'> 
+                    {this.state.current_quote ? `"${this.state.current_quote}"` : null}
                 </p>
+                {this.state.selectedCategory === 'suffering' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/5xaOcLCp8sxC25mCwec/giphy.gif' alt='depression'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/3ohc0RGbTHc6TsFcbe/giphy.gif' alt='feminism'></img>
+                }
             </article>
           </Book.Side>
         </Book.Page>     
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector("GLUTTONY", "DIET")}>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("GLUTTONY", "MODERATION")}>
                 <p className='text-box'>
                     Billy stopped eating and looked at her. He did not know what she was talking about. She did not seem to notice that Little Billy
                     was there. He decided it was better not to ask questions,
@@ -341,9 +369,14 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
+                 <p className='quote-text-box'> 
                     "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
+                {this.state.selectedCategory === 'gluttony' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/xXud4DaGlJoRy/giphy.gif' alt='gluttony'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/apKGAQh7saobC/giphy.gif' alt='feminism'></img>
+                }
             </article>
           </Book.Side>
         </Book.Page> 
@@ -356,7 +389,7 @@ export default class ParkStory extends React.Component {
               <Book width='880px' height='523px'>
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector("ABSURD", "SUFFERING")}>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector("ABSURD", "SADNESS")}>
                 <p className='text-box'>
                     Little Billy was cramming pancakes into his chubby little cheeks as fast as he could. He was so excited. 
                     Pancakes, Snow, Saturday...it was just too perfect! He was so full of happy thoughts 
@@ -397,9 +430,10 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side><article className='page'>
-                <p className='text-box'>
+                <p className='quote-text-box'>
                 Mother cried  out, "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/YLgIOmtIMUACY/giphy.gif' alt='sadness'></img>       
             </article>
           </Book.Side>
           <Book.Side>
@@ -416,7 +450,7 @@ export default class ParkStory extends React.Component {
         <Book.Page>
           <Book.Side><article className='page' onClick={() => this.engageTheEnd()}>
                 <img className="animated-gif" src='https://media1.giphy.com/media/fR4qnTFfX41nMWpwpx/200.webp?cid=790b76118e8d6e55e739a02619d0c6545cd3d0e40105006d&rid=200.webp' alt='choke'></img>
-                <p className='race-end-tag-line'>THE END</p>
+                <p className='glutton-end-tag-line'>THE END</p>
             </article>
           </Book.Side>
           <Book.Side>
@@ -478,8 +512,10 @@ export default class ParkStory extends React.Component {
         <Book.Page>
           <Book.Side><article className='page'>
                 <p className='text-box'>
-                    Chapter 2: Little Billy's Big Park Adventure
+                    <p className='ch-2-header'>Part II</p>  
+                    <p className='ch-2-title'>Little Billy's Big Park Adventure</p>
                 </p>
+                <img className="animated-gif-park" src='https://media.giphy.com/media/XVqz9Ak7m3VQs/giphy.gif' alt='park'></img>
             </article>
           </Book.Side>
           <Book.Side>
@@ -504,16 +540,17 @@ export default class ParkStory extends React.Component {
           <Book.Side>
             <article className='page'>
                  <p className='text-box'> 
-                    It was very cold. 'BRRRR', said Little Billy. He felt like it was taking forever to get to the park. He thought about how there would probably be a
-                    snowball fight. 
+                    It was very cold. 'BRRRR', said Little Billy. He could not wait to get to the park. He hoped there would be a
+                    snowball fight!
                 </p>
+                <img className='animated-gif-bottom-left' src='https://media.giphy.com/media/XRlMrfDExvnyg/giphy.gif' alt='snowball'></img>
             </article>
           </Book.Side>
         </Book.Page> 
 
         <Book.Page>
           <Book.Side>
-            <article className='page' onClick={() => this.showCategorySelector('EVIL', "HELP")}>
+            <article className='page' onClick={() => this.showCategorySelector('EVIL', "HELPFUL")}>
               <p className='text-box'>
                 He could make a Snowman. 
                 He could lay down in the snow and make Snow Angels.
@@ -547,9 +584,10 @@ export default class ParkStory extends React.Component {
             <article className='page'>
               <p className='text-box'>
                 Little Billy looked her up and down. 
-                She was not as tall as Billy, 
-                and he saw that one of her little legs was shorter than the other one.
+                She was shorter than Billy, a bit weird, 
+                and one of her little legs was shorter than the other one.
               </p>
+              <img className='animated-gif-bottom-left' src='https://thumbs.gfycat.com/WetViciousLamprey-size_restricted.gif' alt='snowball'></img>
             </article>
           </Book.Side>
         </Book.Page>
@@ -572,18 +610,18 @@ export default class ParkStory extends React.Component {
             <Book.Side>
               <article className='page'>
                 <p className='text-box'> 
-                  Just then, a very, very evil idea came to Little Billy's mind.
-                  Billy thought, 'I just know I can run faster than her! I will challenge her to a race, because it will be an easy win.' 
-                  Little Billy didn't even stop to consider how it would make Becky feel.
+                  A mean idea came to Little Billy's mind.
+                  'I just know I can run faster than her! I will challenge her to a race, it will be an easy win!' 
+                  Little Billy didn't even think about how Becky would feel.
                 </p>
               </article>
             </Book.Side>
             <Book.Side>
               <article className='page' >
-                <p className='text-box'>
+                <p className='quote-text-box'>
                   {this.state.current_quote ? this.state.current_quote : null},  he said aloud.
                 </p>
-                <img className="animated-gif" src='https://media.giphy.com/media/sR91D133W02D6/giphy.gif' alt='evil'></img>
+                <img className="animated-gif-bottom-left" src='https://media.giphy.com/media/sR91D133W02D6/giphy.gif' alt='evil'></img>
               </article>
             </Book.Side>
           </Book.Page>
@@ -592,8 +630,8 @@ export default class ParkStory extends React.Component {
             <Book.Side>
               <article className='page'>
                 <p className='text-box'> 
-                  His friend Carlos, who was standing beside Little Billy, opened his eyes wide and backed up a couple steps. This was a
-                  side of Little Billy he had never seen, and it was very, very scary. To Becky he said, 'I bet I'm twice as fast as you, slow-poke! 
+                  His friend Carlos, standing beside him, opened his eyes wide and backed away. This was a
+                  side of Little Billy he had never seen, and it was scary! YIKES! To Becky Little Billy said, 'I bet I'm faster than you, slow-poke! 
                 </p>
               </article>
             </Book.Side>
@@ -620,10 +658,11 @@ export default class ParkStory extends React.Component {
             <Book.Side>
               <article className='page'>
                 <p className='text-box'>
-                  The other children gathered around. Carlos said, 'Okay, I want a good clean race! 
-                  First person to the big tree on the other side of the park wins. Ready, set, GO!' 
-                  Little Billy took off running. 
+                  Carlos said, 'I want a good clean race! 
+                  First person to the big tree wins. Ready? GO!' Everyone cheered.
+                  Little Billy ran fast! 
                 </p>
+                <img className="animated-gif-bottom-left" src='https://media1.tenor.com/images/6a3765b5b1c1e4e4ca7ea42aa7e3d551/tenor.gif?itemid=3547516' alt='evil'></img>
               </article>
             </Book.Side>
           </Book.Page> 
@@ -671,9 +710,14 @@ export default class ParkStory extends React.Component {
           <Book.Page>
             <Book.Side>
               <article className='page' onClick={() => this.showCategorySelector('TRUMP', "KANYE")}>
-                <p className='text-box'> 
+                <p className='quote-text-box'> 
                   {this.state.current_quote ? this.state.current_quote : null}
                 </p>
+                {this.state.selectedCategory === 'capitalism' ?
+                <img className="animated-gif-quote-photo" src='https://thumbs.gfycat.com/WellgroomedNeglectedFlickertailsquirrel-small.gif' alt='capitalism'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://media1.giphy.com/media/3jGewqNYjuPhm/giphy.gif' alt='communism'></img>
+                }
               </article>
             </Book.Side>
             <Book.Side>
@@ -698,9 +742,14 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
+                 <p className='quote-text-box'> 
                   {this.state.current_quote ? this.state.current_quote : null}
                 </p>
+                {this.state.selectedCategory === 'trump' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/1TSUKOv4k56aIryKAP/giphy.gif' alt='trump'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://media1.giphy.com/media/WS4jDSgQZTsYY09PxK/giphy.gif' alt='kanye'></img>
+                }
             </article>
           </Book.Side>
         </Book.Page> 
@@ -726,7 +775,7 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
             <Book.Side>
-              <article className='page' onClick={() => this.showCategorySelector('SUPER_HERO', "VICTORY")}>
+              <article className='page' onClick={() => this.showCategorySelector('SUPER HERO', "VICTORY")}>
                 <p className='text-box'>
                   He dropped his candy cigarette, and mashed it in the dirt with his foot. He had also learned that from watching 
                   Daddy get in his truck the day he went out for
@@ -756,9 +805,14 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
+                 <p className='quote-text-box'> 
                  {this.state.current_quote ? this.state.current_quote : null}
                 </p>
+                {this.state.selectedCategory === 'super_hero' ?
+                <img className="animated-gif-quote-photo" src='https://i.gifer.com/PqjB.gif' alt='hero'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://thumbs.gfycat.com/HatefulVigilantAmericanredsquirrel-size_restricted.gif' alt='victory'></img>
+                }
             </article>
           </Book.Side>
         </Book.Page> 
@@ -789,6 +843,7 @@ export default class ParkStory extends React.Component {
               <p className='text-box'> 
                 "{this.getRandomQuote(this.props.quotes.filter(quote => quote.category === 'battle'))}"
               </p>
+              <img className="animated-gif-quote-photo" src='https://media1.giphy.com/media/JITwJgOytRYYw/giphy.gif' alt='hero'></img>
             </article>
           </Book.Side>
         </Book.Page> 
@@ -819,15 +874,18 @@ export default class ParkStory extends React.Component {
             <article className='page'>
               <p className='text-box'>
                 Little Billy was put into time out for the rest of the weekend,
-                and had to stay in his room. He learned a valuable lesson that day: SLOW AND STEADY WINS THE RACE. 
+                and had to stay in his room. He learned a valuable lesson that day:
               </p>
+              <p className='race-tag-line-park-evil'> SLOW AND STEADY WINS THE RACE.</p>
+              <p className='post-tag-line-text-box'>While this applied to the actual race he had lost,</p>
             </article>
           </Book.Side>
           <Book.Side>
             <article className='page'>
               <p className='text-box'> 
-                While this applied to the actual race he had lost, he also sat scheming about how he would SLOWLY AND STEADILY WIN THE RACE
-                of plotting his revenge against Becky. He made several very mean drawings of what he planned to do.
+                he also sat scheming about how he would SLOWLY AND STEADILY WIN THE RACE
+                of plotting his revenge against Becky. He made some mean drawings,
+                but luckily Mommy found them and took him to see a therapist.
               </p>
             </article>
           </Book.Side>
@@ -837,9 +895,11 @@ export default class ParkStory extends React.Component {
           <Book.Side>
             <article className='page' onClick={() => this.engageTheEnd()}>
               <p className='text-box'> 
-                Luckily Mommy found them, and took him to see a therapist. It worked! Little Billy became a very sweet little boy.
-                    THE END
+                 It worked! Little Billy became a very sweet little boy.      
               </p>    
+              <img className="animated-gif-bottom-right" src='https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif' alt='computer'></img>
+              <p className='race-end-tag-line'>THE END</p>
+              
             </article>
           </Book.Side>
           <Book.Side>
@@ -877,6 +937,7 @@ export default class ParkStory extends React.Component {
           <p className='text-box'> 
             "{this.getRandomQuote(this.props.quotes.filter(quote => quote.category === 'humility'))}"
           </p>
+          <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/NSkzSW10834u4/giphy.gif' alt='hero'></img>
         </article>
       </Book.Side>
     </Book.Page> 
@@ -885,7 +946,7 @@ export default class ParkStory extends React.Component {
       <Book.Side>
         <article className='page'>
           <p className='text-box'>
-            Becky smiled brightly at Little Billy. They had both learned something about themselves. 
+            Becky smiled Little Billy. They had both learned something about themselves. 
             When they grew up, they got married. Becky was the first female President, and Little Billy was a professional 
             runner in the Olympics.
           </p>
@@ -894,10 +955,13 @@ export default class ParkStory extends React.Component {
       <Book.Side>
         <article className='page'>
           <p className='text-box'> 
-            He took home the gold four times, because he knew: SLOW AND STEADY WINS THE RACE. Sadly, Little Billy was later 
-            indicted on several counts of doping charges, and stripped of his medals. Becky was booted out of office after it 
-            came to light 
+            He always trained very hard because he knew: 
+            </p>
+            <p className='race-tag-line-park-evil'> SLOW AND STEADY WINS THE RACE.</p>
+            <p className='post-tag-line-text-box'>
+            Sadly, he was later arrested on doping charges. Becky was booted out of office for being a Russian plant. 
           </p>
+          
         </article>
       </Book.Side>
       </Book.Page> 
@@ -906,18 +970,15 @@ export default class ParkStory extends React.Component {
       <Book.Side>
         <article className='page' onClick={() => this.engageTheEnd()}>
           <p className='text-box'>
-            that she was opening up channels forthe Russians to interfere in domestic politics. 
-            They both got too greedy in their lustful search for power. If only they'd remembered 
-            that fateful lesson.
-            THE END 
+            They both got greedy in their lust for power. If only they'd remembered the moral of this story.
           </p>
+          <img className="animated-gif-bottom-right" src='https://media.giphy.com/media/X8WXhnLj3ik4U/giphy.gif' alt='jail'></img>
+              <p className='race-end-tag-line'>THE END</p>
         </article>
       </Book.Side>
       <Book.Side>
         <article className='page'>
-          <p className='text-box'> 
             <img src={require('../images/back_cover.png')} alt='park'/>
-          </p>
         </article>
       </Book.Side>
     </Book.Page> 
@@ -978,7 +1039,7 @@ export default class ParkStory extends React.Component {
 
           <Book.Page> 
           <Book.Side>
-            <article className='page' onClick={() => this.showCategorySelector('HELP', "FEMINISM")}>
+            <article className='page' onClick={() => this.showCategorySelector('HELPFUL', "FEMINISM")}>
                  <p className='text-box'> 
                     Little Billy did not understand, and walked away. Daddy yelled 
                     something about 'Virtue Signaling' at The News. Little Billy asked
@@ -1009,9 +1070,14 @@ export default class ParkStory extends React.Component {
             </Book.Side>
             <Book.Side>
               <article className='page' >
-                <p className='text-box'>
+                <p className='quote-text-box'>
                 {this.state.current_quote ? this.state.current_quote : null}
                 </p>
+                {this.state.selectedCategory === 'helpful' ?
+                <img className="animated-gif-quote-photo" src='https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif' alt='help'></img>
+                :
+                <img className="animated-gif-quote-photo" src='https://thumbs.gfycat.com/LastNewBlackmamba-size_restricted.gif' alt='high five'></img>
+                }
               </article>
             </Book.Side>
           </Book.Page>
@@ -1023,7 +1089,6 @@ export default class ParkStory extends React.Component {
                    To Becky he said, 'Hey you look really fast! I bet you can beat me in a race! Becky looked at the other children.
                    They smiled and nodded, so she decided to try. 'O.K. But we can't put money on it, that's why
                    I got kicked out of my last school.'
-                  
                 </p>
               </article>
             </Book.Side>
@@ -1080,7 +1145,7 @@ export default class ParkStory extends React.Component {
         <Book.Page>
           <Book.Side>
             <article className='page' onClick={() => this.showCategorySelector('TRUMP', "ABSURD")}>
-                 <p className='text-box'> 
+                 <p className='quote-text-box'> 
                   {this.state.current_quote ? this.state.current_quote : null}
                 </p>
             </article>
@@ -1107,7 +1172,7 @@ export default class ParkStory extends React.Component {
             </article>
           </Book.Side>
             <Book.Side><article className='page'>
-                <p className='text-box'>
+                <p className='quote-text-box'>
                     Alive, Becky shouted, '{this.state.current_quote ? this.state.current_quote : null}'
                 </p>
             </article>
@@ -1201,8 +1266,10 @@ export default class ParkStory extends React.Component {
            <Book.Page>
           <Book.Side><article className='page' onClick={() => this.showCategorySelector('LIES', "REBELLION")}>
                 <p className='text-box'>
-                    Chapter 2: Little Billy's Big Trailer Park Adventure
+                    <p className='ch-2-header'>Part II</p>  
+                    <p className='ch-2-title'>Little Billy's Trailer Park Adventure</p>
                 </p>
+                <img className="animated-gif-park" src='https://thumbs.gfycat.com/PlumpSlipperyKitty-size_restricted.gif' alt='park'></img>
             </article>
           </Book.Side>
           <Book.Side>
@@ -1237,7 +1304,7 @@ export default class ParkStory extends React.Component {
 
           <Book.Page>
           <Book.Side><article className='page'>
-                <p className='text-box'>
+                <p className='quote-text-box'>
                   {this.state.current_quote ? this.state.current_quote : null}
                 </p>
             </article>
@@ -1274,7 +1341,7 @@ export default class ParkStory extends React.Component {
         </Book.Page> 
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector('FEAR', "BRAVERY")}>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector('EVIL', "BRAVERY")}>
                 <p className='text-box'>
                     Little Billy heard the one wearing shoes say 'Nothing but Crackheads up here, I ain't investing a dime!' 
                     The man who was wearing the 'VIETNAM VETERAN' shirt wandered into the
@@ -1294,7 +1361,7 @@ export default class ParkStory extends React.Component {
         </Book.Page> 
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector('KANYE', "BATTLE")}>
+          <Book.Side><article className='page'>
                 <p className='text-box'>
                     He knew he had to stick to the plan. He decided to go ask the man wearing the 'VIETNAM VETERAN' shirt what a 'Crackhead' was.
                     Sounding more brave than he really felt, Little Billy shouted:
@@ -1303,8 +1370,8 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
-                  {this.state.current_quote ? this.state.current_quote : null}
+                 <p className='quote-text-box'> 
+                  "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
             </article>
           </Book.Side>
@@ -1324,25 +1391,46 @@ export default class ParkStory extends React.Component {
                  <p className='text-box'> 
                      It felt good, so he picked up another and threw it through a window, 
                      which broke into a thousand shards. That scared and excited Little Billy. 
-                     He picked up a third bottle, screaming: 
+                     He picked up a third bottle,  This one still had liquid in it. He smelled it. 'EWWWW',
+                    he said.
                 </p>
             </article>
           </Book.Side>
         </Book.Page> 
 
         <Book.Page>
-          <Book.Side><article className='page' onClick={() => this.showCategorySelector('ABSURD', "VILLIAN")}>
+          <Book.Side><article className='page' onClick={() => this.showCategorySelector('KANYE', "BATTLE")}>
                 <p className='text-box'>
-                {this.state.current_quote ? this.state.current_quote : null}
+                  'It smells like sour bread!' He took a sip and spit it out. 'YUCKY!'(Years later, Little Billy would try the sour bread drink again.
+                  When he did, he realized that he really, really, REALLY liked it after all. 
                 </p>
             </article>
           </Book.Side>
           <Book.Side>
             <article className='page'>
                  <p className='text-box'> 
-                    This one still had liquid in it. He smelled it. 'EWWWW',
-                    he said. 'It smells like sour bread!' From the shadows, he heard a scary, 
-                    dark laugh that became a heavy cough. It was the man who didn't have shoes.  
+                  In fact, he liked it so much that he did it everyday and became
+                  an A.L.C.O.H.O.L.I.C. Do you know what that spells? Hint: Little Billy's Mommy and Daddy were this too.)   
+                </p>
+            </article>
+          </Book.Side>
+        </Book.Page> 
+
+        <Book.Page>
+          <Book.Side><article className='page'>
+                <p className='text-box'>
+                'I feel gross!' Little Billy said, spitting again. From the shadows, he heard a scary, 
+                    dark laugh that became a heavy cough. It was the man who didn't have shoes. Startled, Little Billy threw the bottle
+                    and screamed.
+                </p>
+            </article>
+          </Book.Side>
+          <Book.Side>
+            <article className='page'>
+                 <p className='text-box'> 
+                    The chaos he had caused with the bottles was making
+                    Little Billy feel very brave. He asked the man, 'Do you have a crack on 
+                    your head? What's a Vietnam?' The crackhead said:    
                 </p>
             </article>
           </Book.Side>
@@ -1350,29 +1438,34 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side><article className='page' onClick={() => this.showDirectionSelector('FAST', "SLOW")}>
-                <p className='text-box'>
-                    The chaos he had caused with the bottles was making
-                    Little Billy feel very brave. He asked the man, 'Do you have a crack on 
-                    your head? What's a Vietnam?' In a brief moment of coherence, the man said:   
+                <p className='quote-text-box'>
+                "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
             </article>
           </Book.Side>
           <Book.Side>
             <article className='page'>
                  <p className='text-box'> 
-                 {this.state.current_quote ? this.state.current_quote : null}
+                 The man looked at him and went 'BARK BARK' like a dog. 
+                    He dropped down on all fours and started chasing Little Billy. The man had not had any crack all day, 
+                    and he was starting to suffer from 'Cocaine Psychosis. 
                 </p>
             </article>
           </Book.Side>
         </Book.Page> 
 
         <Book.Page>
+          <Book.Side><article className='page' onClick={() => this.engageFastOrSlow()}>
+                <p className='text-box'>
+                At first Little Billy was excited, he thought the crackhead wanted to play with him! He smiled and said, 'Are you a little puppy?' He was sorely mistaken.
+                  The crackhead was not a little puppy. He was a product of a horrible system and had finally had enough. 
+                </p>
+            </article>
+          </Book.Side>
           <Book.Side>
             <article className='page'>
-                <p className='text-box'>
-                    Little Billy laughed and laughed. The man looked at him and went 'BARK BARK' like a dog. 
-                    He dropped down on all fours and started chasing Little Billy. The man had not had any crack all day, 
-                    and he was starting to suffer from 'Cocaine Psychosis. 
+                 <p className='text-box'> 
+                    Launching himself forward, he snarled and spat foam. He began speaking in tongues and was ready to do terrible things in order to get what he needed.
                 </p>
             </article>
           </Book.Side>
@@ -1391,7 +1484,7 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side>
-            <article className='page'>
+            <article className='page' onClick={() => this.showCategorySelector('VICTORY', "SADNESS")}>
                  <p className='text-box'> 
                     Little Billy was very, very scared. He was so scared that he peed in his 
                     own jeans, which is not a big deal and happens to the best of us. 
@@ -1401,7 +1494,7 @@ export default class ParkStory extends React.Component {
           </Book.Side>
           <Book.Side><article className='page'>
                 <p className='text-box'>
-                    He was extremely motivated, both by his own personal addictions, and by the hard knowledge that a government system he had suffered 
+                    He was extremely motivated, both by his own personal addictions, and by the hard knowledge that a government system he had bled for in a war 
                     for had failed him in his hour of darkest need.
                 </p>
             </article>
@@ -1430,8 +1523,8 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side><article className='page'>
-                <p className='text-box'>
-              
+                <p className='quote-text-box'>
+                  "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
             </article>
           </Book.Side>
@@ -1467,7 +1560,7 @@ export default class ParkStory extends React.Component {
         </Book.Page> 
 
         <Book.Page>
-          <Book.Side><article className='page'>
+          <Book.Side><article className='page' onClick={() => this.engageTheEnd()}>
                 <p className='text-box'>
                     and got filthy rich in the logging industry. His actions helped end The Amazon Rainforest, and he got a large
                     bonus from his boss. THE END
@@ -1483,6 +1576,7 @@ export default class ParkStory extends React.Component {
           </Book.Side>
         </Book.Page> 
         </Book>
+        {this.returnToChoose()}
         </div> 
         :
         null
@@ -1497,7 +1591,7 @@ export default class ParkStory extends React.Component {
 
   <Book.Page>
           <Book.Side>
-            <article className='page'>
+            <article className='page' >
                  <p className='text-box'> 
                     Little Billy was very, very scared. He was so scared that he peed in his 
                     own jeans, which is not a big deal and happens to the best of us. 
@@ -1516,9 +1610,9 @@ export default class ParkStory extends React.Component {
 
          <Book.Page>
           <Book.Side>
-            <article className='page'>
+            <article className='page' onClick={() => this.showCategorySelector('VICTORY', "SADNESS")}>
                  <p className='text-box'> 
-                    
+                 "{this.getRandomQuote(this.props.quotes.filter(quote => quote.category === 'battle'))}"
                 </p>
             </article>
           </Book.Side>
@@ -1543,8 +1637,8 @@ export default class ParkStory extends React.Component {
           </Book.Side>
          <Book.Side>
             <article className='page'>
-                 <p className='text-box'> 
-                   
+                 <p className='quote-text-box'> 
+                  "{this.state.current_quote ? this.state.current_quote : null}"
                 </p>
             </article>
           </Book.Side>
@@ -1565,7 +1659,6 @@ export default class ParkStory extends React.Component {
                     he started a
                     decades long disinformation campaign, 
                     all to help destabilize Western Democracy on the orders of Vladimir Putin. Boy did it work!
-                    
                 </p>
             </article>
           </Book.Side>
@@ -1573,7 +1666,7 @@ export default class ParkStory extends React.Component {
 
         <Book.Page>
           <Book.Side>
-            <article className='page'>
+            <article className='page' onClick={() => this.engageTheEnd()}>
                  <p className='text-box'> 
                     He was eventually compromised and disposed of by his own handlers, sadly only days before the glorious 
                     reunification of the Soviet Empire.
@@ -1588,6 +1681,7 @@ export default class ParkStory extends React.Component {
              </Book.Side>
         </Book.Page>  
    </Book> 
+   {this.returnToChoose()}
           </div>
           :
           null
