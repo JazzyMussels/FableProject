@@ -1,7 +1,8 @@
 .background-main-image {
-    background-image: url('../images/liberry.jpg') ;
+    background-image: url('../images/liberry.png') ;
     background-size: cover ;
     height: 730px;
+    
 
   }
   
@@ -12,6 +13,7 @@
     margin-left: 450px;
     margin-top: 60px;
     position: absolute;
+    border: 2px solid whitesmoke;
   }
   
   #text-box-1 {
@@ -20,6 +22,7 @@
     width: 300px;
     margin-left: 75px;
     font-size: 45px;
+    color: whitesmoke;
     -webkit-text-stroke: 1.5px whitesmoke;
     font-family: 'Lobster', cursive;
   }
@@ -32,6 +35,7 @@
     font-size: 45px;
     -webkit-text-stroke: 1.5px whitesmoke;
     font-family: 'Lobster', cursive;
+    color: whitesmoke;
   }
   
   .baby-button {
@@ -41,4 +45,15 @@
      margin-top: 420px; 
     margin-left: 1050px;
     position: absolute; 
+    border: 2px solid whitesmoke;
+    border-radius: 50%
+  }
+
+  #click-me{
+    margin-top: 520px; 
+    margin-left: 1140px;
+    position: absolute; 
+    color: firebrick;
+    font-family: 'Eraser';
+    font-size:25px;
   }

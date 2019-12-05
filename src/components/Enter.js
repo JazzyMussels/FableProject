@@ -1,10 +1,16 @@
 import React from 'react';
 import '../css/Enter.css'
 import {NavLink} from 'react-router-dom'
+import yay from '../sounds/yay.mp3'
+const newAudio = new Audio(yay)
 
 export default class Enter extends React.Component {
 
   
+
+    playSound = () => {
+        newAudio.play()
+    }
 
     render(){
         return(
@@ -18,8 +24,8 @@ export default class Enter extends React.Component {
             well then come on in! </div>
 
             <div className='warning-page'></div>
-            <NavLink className='baby-button' to='/cover'></NavLink>
-           
+            <NavLink className='baby-button' to='/cover' onClick={() => this.playSound()}></NavLink>
+           <div id='click-me'>CLICK  ME</div>
 
             </div>
         )

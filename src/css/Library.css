@@ -1,0 +1,32 @@
+.burn-books{
+    position: absolute;
+    width: 1440px;
+    height:770px;
+}
+
+.return-to-choose{
+    font-size:40px;
+    font-family: 'Lobster', cursive;
+    position: absolute;
+    color: whitesmoke;
+    margin-top:610px;
+    margin-left: 45%;
+}
+
+.burn-text-signature{
+    font-size:45px;
+    font-family: 'Lobster', cursive;
+    position: absolute;
+    color: whitesmoke;
+    margin-top:400px;
+    margin-left: 75%;
+}
+
+.burn-text-main{
+    font-size:50px;
+    font-family: 'Lobster', cursive;
+    position: absolute;
+    color: whitesmoke;
+    margin-top:160px;
+    margin-left: 5%;
+}

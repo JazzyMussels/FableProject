@@ -24,5 +24,41 @@
     font-size: 60px;
     margin-top: 70px;
     margin-left:400px;
-    -webkit-text-stroke: 1.5px whitesmoke;
+    width: 710px;
+    /* -webkit-text-stroke: 1.5px whitesmoke; */
+    background-color: black;
+    color: whitesmoke;
+}
+
+#school-book{
+    filter: brightness(40%);
+    /* position: absolute; */
+}
+
+#twin-book{
+    filter: brightness(40%);
+    /* position: absolute; */
+}
+
+#not-avail-1{
+    font-size: 30px;
+    font-family: 'Playfair Display', serif;
+    width:150px;
+    margin-top: -410px;
+    margin-left: 650px;
+    position: absolute;
+    color: whitesmoke;
+    text-align: center;
+}
+
+#not-avail-2{
+    font-size: 30px;
+    font-family: 'Playfair Display', serif;
+    width:150px;
+    margin-top: -410px;
+    margin-left: 1150px;
+    position: absolute;
+    color: whitesmoke;
+    text-align: center;
+
 }

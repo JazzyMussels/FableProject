@@ -7,11 +7,11 @@ import Library from './Library'
 import Cover from './Cover'
 import AboutPage from './AboutPage'
 import ParkStory from './ParkStory';
+import Rate from './Rate'
+import Rejected from './Rejected'
 
 
 const QUOTE_API = 'http://localhost:3000/quotes'
-// const BOOK_API = 'http://localhost:3000/book'
-// const IMAGE_API = 'http://localhost:3000/pictures'
 
 export default class App extends React.Component {
 
@@ -42,6 +42,8 @@ export default class App extends React.Component {
                 <Route path='/about'><AboutPage/></Route>
                 <Route path='/cover'><Cover/></Route>
                 <Route path='/new'><Choose/></Route>
+                <Route path='/rate'><Rate/></Route>
+                <Route path='/rejected'><Rejected/></Route>
                 <Route path='/'><Enter/></Route>
             </Switch>
      </BrowserRouter>

@@ -1,0 +1,31 @@
+.reject-text-main{
+    position: absolute;
+    margin-left: 470px;
+    margin-top: 25px;
+    font-family: 'Lobster';
+    font-size: 50px;
+    color: whitesmoke;
+}
+
+.reject-page{
+    height: 740px;
+    background-color: thistle;
+    
+}
+
+.trash-pic{
+    margin-left: 20%;
+    margin-top: 20px;
+    height: 700px;
+    position: absolute;
+    border: 2px solid #0c0c0c;
+}
+
+.back{
+    position: absolute;
+    margin-top: 650px;
+    margin-left: 650px;
+    font-family: 'Lobster';
+    font-size: 50px;
+    color: whitesmoke;
+}
