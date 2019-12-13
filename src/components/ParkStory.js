@@ -31,27 +31,6 @@ export default class ParkStory extends React.Component {
             goToSlowPath: false,
 
 
-            villian_quotes: this.props.quotes.filter(quote => quote.category === 'villian'), 
-            help_quotes: this.props.quotes.filter(quote => quote.category === 'helpful'), 
-            sadness_quotes: this.props.quotes.filter(quote => quote.category === 'sadness'), 
-            gluttony_quotes: this.props.quotes.filter(quote => quote.category === 'gluttony'), 
-            rebellion_quotes: this.props.quotes.filter(quote => quote.category === 'rebellion'), 
-            death_quotes: this.props.quotes.filter(quote => quote.category === 'death'), 
-            suffering_quotes: this.props.quotes.filter(quote => quote.category === 'suffering'), 
-            evil_quotes: this.props.quotes.filter(quote => quote.category === 'evil'), 
-            trump_quotes: this.props.quotes.filter(quote => quote.category === 'trump'), 
-            feminism_quotes: this.props.quotes.filter(quote => quote.category === 'feminism'), 
-            lies_quotes: this.props.quotes.filter(quote => quote.category === 'lies'), 
-            christian_quotes: this.props.quotes.filter(quote => quote.category === 'christian'), 
-            absurd_quotes: this.props.quotes.filter(quote => quote.category === 'absurd'), 
-            kanye_quotes: this.props.quotes.filter(quote => quote.category === 'kanye'), 
-            bravery_quotes: this.props.quotes.filter(quote => quote.category === 'bravery'), 
-            super_hero_quotes: this.props.quotes.filter(quote => quote.category === 'super hero'), 
-            victory_quotes: this.props.quotes.filter(quote => quote.category === 'victory'), 
-            battle_quotes: this.props.quotes.filter(quote => quote.category === 'battle'), 
-            communism_quotes: this.props.quotes.filter(quote => quote.category === 'communism'), 
-            humility_quotes: this.props.quotes.filter(quote => quote.category === 'humility'), 
-            capitalism_quotes: this.props.quotes.filter(quote => quote.category === 'capitalism')
         }
     }
 
