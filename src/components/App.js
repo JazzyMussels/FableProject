@@ -11,7 +11,7 @@ import Rate from './Rate'
 import Rejected from './Rejected'
 
 
-const QUOTE_API = 'http://localhost:3000/quotes'
+const QUOTE_API = 'https://d-for-darkness-api.herokuapp.com/'
 
 export default class App extends React.Component {
 
